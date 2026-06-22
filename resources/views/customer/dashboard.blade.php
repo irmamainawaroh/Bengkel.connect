@@ -707,10 +707,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 @if($isFinal)
                     <button class="close-banner" style="background:#16a34a; color:#fff; padding:8px 14px; border-radius:12px; border:none; cursor:pointer; font-weight:700;" onclick="window.location.href='{{ route('booking.showUploadPelunasan', ['kode_booking' => $repairInvoiceBooking->kode_booking]) }}'">Upload Pelunasan</button>
                 @endif
-
-
-
-
             </div>
         </div>
 
@@ -733,36 +729,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <a href="/logout" class="logout-button" id="logoutLink">
             <i class="bi bi-box-arrow-right"></i> Keluar
-                    </a>
+        </a>
+    </div>
 
-                </div>
-
-                <!-- Floating Riwayat Booking (pojok kanan bawah) -->
-                    <a href="{{ route('customer.riwayat-nota-lunas') }}" style="
-                    position: fixed;
-                    bottom: 24px;
-                    right: 24px;
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                    background: #0f172a;
-                    color: #ffffff;
-                    font-family: 'Poppins', sans-serif;
-                    font-weight: 600;
-                    font-size: 13px;
-                    padding: 12px 18px;
-                    border-radius: 14px;
-                    text-decoration: none;
-                    box-shadow: 0 4px 18px rgba(15,23,42,0.20);
-                    z-index: 900;
-                    transition: opacity 0.2s, transform 0.15s;
-                    "
-                    onmouseover="this.style.opacity='0.88'; this.style.transform='translateY(-2px)';"
-                    onmouseout="this.style.opacity='1'; this.style.transform='translateY(0)';">
-                    <i class="bi bi-clipboard-check"></i>
-                    Riwayat Booking
-                </a>
-
+    <!-- Floating Riwayat Booking (pojok kanan bawah) -->
+    <a href="{{ route('customer.riwayat-nota-lunas') }}" style="
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: #0f172a;
+        color: #ffffff;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        font-size: 13px;
+        padding: 12px 18px;
+        border-radius: 14px;
+        text-decoration: none;
+        box-shadow: 0 4px 18px rgba(15,23,42,0.20);
+        z-index: 900;
+        transition: opacity 0.2s, transform 0.15s;
+        "
+        onmouseover="this.style.opacity='0.88'; this.style.transform='translateY(-2px)';"
+        onmouseout="this.style.opacity='1'; this.style.transform='translateY(0)';">
+        <i class="bi bi-clipboard-check"></i>
+        Riwayat Booking
+    </a>
 
     <!-- Modal konfirmasi logout -->
     <div class="confirm-logout-overlay" id="logoutConfirmOverlay" aria-hidden="true">
@@ -795,8 +789,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $notifyHasData = !empty(optional($customerInvoiceBooking)->invoice_sent_at)
             || !empty(optional($customerInvoiceBooking)->total_biaya_perbaikan)
             || !empty(optional($customerInvoiceBooking)->lunas_at);
-
-
     @endphp
 
     @if($notifyReady)
@@ -821,13 +813,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div style="position:fixed; right:16px; bottom:16px; z-index:100000; display:flex; align-items:center;">
                     <a href="{{ route('customer.showRepairHistory') }}" style="padding:12px 16px; border-radius:14px; background:#0f172a; color:#fff; font-weight:900; text-decoration:none; font-size:12px; box-shadow:0 12px 30px rgba(0,0,0,0.18);">
                         <i class="bi bi-journal-text" style="margin-right:8px;"></i> Riwayat Booking
-
-
                     </a>
                 </div>
-
-
-
             </div>
         </div>
 
@@ -838,12 +825,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 const goBtn = document.getElementById('invoice-popup-go');
                 if(!overlay) return;
 
-                // FIX: jangan auto-hilang permanen untuk notifikasi lunas.
-                // Karena penggunaan localStorage menyebabkan popup tidak muncul lagi pada refresh berikutnya.
                 const key = 'invoice_popup_seen_' + '{{ optional($customerInvoiceBooking)->kode_booking }}';
                 try{
-                    // Hanya mencegah duplikasi saat user membuka/menutup dalam session yang sama (bukan permanen).
-                    // Jika ingin selalu tampil untuk lunas baru, localStorage sebaiknya tidak dipakai / di-key dengan lunas_at.
                     if(sessionStorage.getItem(key) === '1') overlay.style.display='none';
                 }catch(e){}
 
@@ -851,7 +834,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     try{ sessionStorage.setItem(key,'1'); }catch(e){}
                     overlay.style.display='none';
                 }
-
 
                 closeBtn && closeBtn.addEventListener('click', closePopup);
                 overlay && overlay.addEventListener('click', function(e){ if(e.target === overlay) closePopup(); });
@@ -877,7 +859,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="icon-circle bg-red"><i class="bi bi-building"></i></div>
                     <h3>Kunjungi Bengkel</h3>
                     <p>Datang langsung ke bengkel kami dengan peralatan lengkap dan teknisi berpengalaman</p>
-
                     <ul class="card-features list-red">
                         <li>Fasilitas lengkap</li>
                         <li>Ruang tunggu nyaman</li>
@@ -885,11 +866,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </ul>
                 </div>
 
-<div class="base-card" onclick="navigateTo('homeServiceView')">
+                <div class="base-card" onclick="navigateTo('homeServiceView')">
                     <div class="icon-circle bg-green"><i class="bi bi-house-door"></i></div>
                     <h3>Home Service</h3>
                     <p>Teknisi kami datang ke lokasi Anda dengan peralatan portable dan suku cadang</p>
-
                     <ul class="card-features list-green">
                         <li>Hemat waktu</li>
                         <li>Lebih praktis</li>
@@ -917,108 +897,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <h2>Booking Home Service</h2>
                     <p>Mekanik kami akan mendatangi kediaman atau lokasi Anda</p>
                 </div>
-
-
-
-
-
-@include('customer.partials.booking-home-service')
-
-                            <option value="Ganti Kampas Rem (Dispad / Brake Shoe)">Ganti Kampas Rem (Dispad / Brake Shoe)</option>
-                            <option value="Bubut Piringan Cakram (Disc Brake)">Bubut Piringan Cakram (Disc Brake)</option>
-                            <option value="Kuras & Ganti Minyak Rem (Brake Fluid)">Kuras & Ganti Minyak Rem (Brake Fluid)</option>
-                            <option value="Ganti/Kuras Oli Transmisi (Manual / Matic ATF/CVT)">Ganti/Kuras Oli Transmisi (Manual / Matic ATF/CVT)</option>
-                            <option value="Ganti Set Kopling (Clutch Kit - Manual)">Ganti Set Kopling (Clutch Kit - Manual)</option>
-                            <option value="Kalibrasi / Scan Transmisi Otomatis">Kalibrasi / Scan Transmisi Otomatis</option>
-                            <option value="Ganti Aki (Accu) + Cek Alternator">Ganti Aki (Accu) + Cek Alternator</option>
-                            <option value="Jamper Aki / Perbaikan Sekring & Kabel">Jamper Aki / Perbaikan Sekring & Kabel</option>
-                            <option value="Lainnya (Opsional)">Lainnya (Opsional)</option>
-                        </select>
-
-                        <div style="margin-top:12px;">
-                            <label style="display:flex; align-items:center; gap:8px; font-size:12px; font-weight:500; color:#495057; margin-bottom:6px;">
-                                <i class="bi bi-chat-left-text"></i> Layanan Lain
-                            </label>
-                            <textarea name="layanan_lain" class="form-control" placeholder="Ketik layanan lain yang Anda butuhkan..."></textarea>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label><i class="bi bi-geo-alt"></i> Alamat Lengkap Lokasi</label>
-                        <textarea name="alamat" class="form-control" placeholder="Tulis nama jalan, nomor rumah, RT/RW, atau patokan lokasi Anda..." required></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label><i class="bi bi-calendar3"></i> Tanggal Kedatangan</label>
-                        <input type="date" name="tanggal" class="form-control" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label><i class="bi bi-clock"></i> Waktu</label>
-                        <select name="waktu" class="form-control" required>
-                            <option value="" disabled selected>-- Pilih Waktu --</option>
-                            <option value="08:00 WIB">08:00 WIB</option>
-                            <option value="09:00 WIB">09:00 WIB</option>
-                            <option value="10:00 WIB">10:00 WIB</option>
-                            <option value="11:00 WIB">11:00 WIB</option>
-                            <option value="12:00 WIB">12:00 WIB</option>
-                            <option value="13:00 WIB">13:00 WIB</option>
-                            <option value="14:00 WIB">14:00 WIB</option>
-                            <option value="15:00 WIB">15:00 WIB</option>
-                            <option value="16:00 WIB">16:00 WIB</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label><i class="bi bi-person"></i> Nama Lengkap</label>
-                        <input type="text" name="nama" class="form-control" placeholder="Masukkan nama lengkap" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label><i class="bi bi-telephone"></i> Nomor Telepon (WhatsApp)</label>
-                        <input type="tel" name="telepon" class="form-control" placeholder="08xx-xxxx-xxxx" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label><i class="bi bi-car-front"></i> Jenis Kendaraan</label>
-                        <select name="kendaraan" class="form-control" required>
-                            <option value="" disabled selected>-- Pilih Jenis --</option>
-                            <option value="Honda Brio">Honda Brio</option>
-                            <option value="Toyota Yaris">Toyota Yaris</option>
-                            <option value="Toyota Agya">Toyota Agya</option>
-                            <option value="Suzuki Ignis">Suzuki Ignis</option>
-                            <option value="Toyota Avanza">Toyota Avanza</option>
-                            <option value="Mitsubishi Xpander">Mitsubishi Xpander</option>
-                            <option value="Toyota Innova">Toyota Innova</option>
-                            <option value="Suzuki Ertiga">Suzuki Ertiga</option>
-                            <option value="Toyota Fortuner">Toyota Fortuner</option>
-                            <option value="Mitsubishi Pajero Sport">Mitsubishi Pajero Sport</option>
-                            <option value="Honda CR-V">Honda CR-V</option>
-                            <option value="Daihatsu Terios">Daihatsu Terios</option>
-                            <option value="Honda Civic">Honda Civic</option>
-                            <option value="Toyota Camry">Toyota Camry</option>
-                            <option value="Mercedes-Benz C-Class">Mercedes-Benz C-Class</option>
-                            <option value="Daihatsu Gran Max">Daihatsu Gran Max</option>
-                            <option value="Suzuki Carry">Suzuki Carry</option>
-                            <option value="Toyota Hilux">Toyota Hilux</option>
-                            <option value="Wuling Air EV">Wuling Air EV</option>
-                            <option value="Hyundai Ioniq 5">Hyundai Ioniq 5</option>
-                            <option value="Toyota Kijang Innova Zenix Hybrid">Toyota Kijang Innova Zenix Hybrid</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label><i class="bi bi-card-text"></i> Nomor Polisi</label>
-                        <input type="text" name="nopol" class="form-control" placeholder="B 1234 XYZ" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label><i class="bi bi-chat-right-dots"></i> Detail Keluhan (Opsional)</label>
-                        <textarea name="catatan" class="form-control" placeholder="Deskripsikan keluhan kendaraan Anda dengan detail..."></textarea>
-                    </div>
-
-<button type="submit" class="btn-submit btn-green">Konfirmasi</button>
-                </form>
+                @include('customer.partials.booking-home-service')
             </div>
         </div>
 
@@ -1181,4 +1060,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </script>
 </body>
 </html>
-
