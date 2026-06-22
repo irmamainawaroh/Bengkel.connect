@@ -2,7 +2,7 @@
     "private": true,
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build && mkdir -p public/build && cp -r dist/* public/build/ 2>/dev/null || true"
     },
     "devDependencies": {
         "axios": "^1.1.2",
